@@ -118,7 +118,7 @@ local function insert_path(prompt_bufnr, relative, location, vim_mode)
 	if location == "h" then
 		put_after = false
 	elseif location == "H" then
-		vim.cmd([[normal! H]])
+		vim.cmd([[normal! I]])
 		put_after = false
 	elseif location == "a" then
 		put_after = true
@@ -126,11 +126,11 @@ local function insert_path(prompt_bufnr, relative, location, vim_mode)
 		vim.cmd([[normal! $]])
 		put_after = true
 	elseif location == "k" then
-		vim.cmd([[normal! k ]]) -- add empty space so the cursor respects the indent
+		vim.cmd([[normal! o ]]) -- add empty space so the cursor respects the indent
 		vim.cmd([[normal! x]]) -- and immediately delete it
 		put_after = true
 	elseif location == "K" then
-		vim.cmd([[normal! K ]])
+		vim.cmd([[normal! O ]])
 		vim.cmd([[normal! x]])
 		put_after = true
 	end
@@ -159,7 +159,7 @@ local function insert_path(prompt_bufnr, relative, location, vim_mode)
 		-- start with empty line
 		-- table.insert(selections, 1, "")
 		for _, selection in ipairs(selections) do
-			vim.cmd([[normal! k ]]) -- add empty space so the cursor respects the indent
+			vim.cmd([[normal! o ]]) -- add empty space so the cursor respects the indent
 			vim.cmd([[normal! x]]) -- and immediately delete it
 			vim.api.nvim_put({ selection }, "", true, true)
 		end
