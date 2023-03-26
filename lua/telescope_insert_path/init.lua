@@ -71,21 +71,21 @@ end
 
 local function insert_path(prompt_bufnr, relative, location, vim_mode)
 	if
-		location ~= "i"
-		and location ~= "I"
+		location ~= "h"
+		and location ~= "H"
 		and location ~= "a"
 		and location ~= "A"
-		and location ~= "o"
-		and location ~= "O"
+		and location ~= "k"
+		and location ~= "K"
 	then
 		location = vim.fn.nr2char(vim.fn.getchar())
 		if
-			location ~= "i"
-			and location ~= "I"
+			location ~= "h"
+			and location ~= "H"
 			and location ~= "a"
 			and location ~= "A"
-			and location ~= "o"
-			and location ~= "O"
+			and location ~= "k"
+			and location ~= "K"
 		then
 			-- escape
 			return nil
@@ -115,22 +115,22 @@ local function insert_path(prompt_bufnr, relative, location, vim_mode)
 	vim.cmd([[stopinsert]])
 
 	local put_after = nil
-	if location == "i" then
+	if location == "h" then
 		put_after = false
-	elseif location == "I" then
-		vim.cmd([[normal! I]])
+	elseif location == "H" then
+		vim.cmd([[normal! H]])
 		put_after = false
 	elseif location == "a" then
 		put_after = true
 	elseif location == "A" then
 		vim.cmd([[normal! $]])
 		put_after = true
-	elseif location == "o" then
-		vim.cmd([[normal! o ]]) -- add empty space so the cursor respects the indent
+	elseif location == "k" then
+		vim.cmd([[normal! k ]]) -- add empty space so the cursor respects the indent
 		vim.cmd([[normal! x]]) -- and immediately delete it
 		put_after = true
-	elseif location == "O" then
-		vim.cmd([[normal! O ]])
+	elseif location == "K" then
+		vim.cmd([[normal! K ]])
 		vim.cmd([[normal! x]])
 		put_after = true
 	end
@@ -159,7 +159,7 @@ local function insert_path(prompt_bufnr, relative, location, vim_mode)
 		-- start with empty line
 		-- table.insert(selections, 1, "")
 		for _, selection in ipairs(selections) do
-			vim.cmd([[normal! o ]]) -- add empty space so the cursor respects the indent
+			vim.cmd([[normal! k ]]) -- add empty space so the cursor respects the indent
 			vim.cmd([[normal! x]]) -- and immediately delete it
 			vim.api.nvim_put({ selection }, "", true, true)
 		end
@@ -186,11 +186,11 @@ end
 
 -- insert mode mappings
 path_actions.insert_abspath_i_insert = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "abs", "i", "i")
+	return insert_path(prompt_bufnr, "abs", "h", "i")
 end
 
 path_actions.insert_abspath_I_insert = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "abs", "I", "i")
+	return insert_path(prompt_bufnr, "abs", "H", "i")
 end
 
 path_actions.insert_abspath_a_insert = function(prompt_bufnr)
@@ -202,19 +202,19 @@ path_actions.insert_abspath_A_insert = function(prompt_bufnr)
 end
 
 path_actions.insert_abspath_o_insert = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "abs", "o", "i")
+	return insert_path(prompt_bufnr, "abs", "k", "i")
 end
 
 path_actions.insert_abspath_O_insert = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "abs", "O", "i")
+	return insert_path(prompt_bufnr, "abs", "K", "i")
 end
 
 path_actions.insert_relpath_i_insert = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "cwd", "i", "i")
+	return insert_path(prompt_bufnr, "cwd", "h", "i")
 end
 
 path_actions.insert_relpath_I_insert = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "cwd", "I", "i")
+	return insert_path(prompt_bufnr, "cwd", "H", "i")
 end
 
 path_actions.insert_relpath_a_insert = function(prompt_bufnr)
@@ -226,19 +226,19 @@ path_actions.insert_relpath_A_insert = function(prompt_bufnr)
 end
 
 path_actions.insert_relpath_o_insert = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "cwd", "o", "i")
+	return insert_path(prompt_bufnr, "cwd", "k", "i")
 end
 
 path_actions.insert_relpath_O_insert = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "cwd", "O", "i")
+	return insert_path(prompt_bufnr, "cwd", "K", "i")
 end
 
 path_actions.insert_reltobufpath_i_insert = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "buf", "i", "i")
+	return insert_path(prompt_bufnr, "buf", "h", "i")
 end
 
 path_actions.insert_reltobufpath_I_insert = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "buf", "I", "i")
+	return insert_path(prompt_bufnr, "buf", "H", "i")
 end
 
 path_actions.insert_reltobufpath_a_insert = function(prompt_bufnr)
@@ -250,20 +250,20 @@ path_actions.insert_reltobufpath_A_insert = function(prompt_bufnr)
 end
 
 path_actions.insert_reltobufpath_o_insert = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "buf", "o", "i")
+	return insert_path(prompt_bufnr, "buf", "k", "i")
 end
 
 path_actions.insert_reltobufpath_O_insert = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "buf", "O", "i")
+	return insert_path(prompt_bufnr, "buf", "K", "i")
 end
 
 -- normal mode mappings
 path_actions.insert_abspath_i_normal = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "abs", "i", "n")
+	return insert_path(prompt_bufnr, "abs", "h", "n")
 end
 
 path_actions.insert_abspath_I_normal = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "abs", "I", "n")
+	return insert_path(prompt_bufnr, "abs", "H", "n")
 end
 
 path_actions.insert_abspath_a_normal = function(prompt_bufnr)
@@ -275,19 +275,19 @@ path_actions.insert_abspath_A_normal = function(prompt_bufnr)
 end
 
 path_actions.insert_abspath_o_normal = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "abs", "o", "n")
+	return insert_path(prompt_bufnr, "abs", "k", "n")
 end
 
 path_actions.insert_abspath_O_normal = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "abs", "O", "n")
+	return insert_path(prompt_bufnr, "abs", "K", "n")
 end
 
 path_actions.insert_relpath_i_normal = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "cwd", "i", "n")
+	return insert_path(prompt_bufnr, "cwd", "h", "n")
 end
 
 path_actions.insert_relpath_I_normal = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "cwd", "I", "n")
+	return insert_path(prompt_bufnr, "cwd", "H", "n")
 end
 
 path_actions.insert_relpath_a_normal = function(prompt_bufnr)
@@ -299,19 +299,19 @@ path_actions.insert_relpath_A_normal = function(prompt_bufnr)
 end
 
 path_actions.insert_relpath_o_normal = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "cwd", "o", "n")
+	return insert_path(prompt_bufnr, "cwd", "k", "n")
 end
 
 path_actions.insert_relpath_O_normal = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "cwd", "O", "n")
+	return insert_path(prompt_bufnr, "cwd", "K", "n")
 end
 
 path_actions.insert_reltobufpath_i_normal = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "buf", "i", "n")
+	return insert_path(prompt_bufnr, "buf", "h", "n")
 end
 
 path_actions.insert_reltobufpath_I_normal = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "buf", "I", "n")
+	return insert_path(prompt_bufnr, "buf", "H", "n")
 end
 
 path_actions.insert_reltobufpath_a_normal = function(prompt_bufnr)
@@ -323,20 +323,20 @@ path_actions.insert_reltobufpath_A_normal = function(prompt_bufnr)
 end
 
 path_actions.insert_reltobufpath_o_normal = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "buf", "o", "n")
+	return insert_path(prompt_bufnr, "buf", "k", "n")
 end
 
 path_actions.insert_reltobufpath_O_normal = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "buf", "O", "n")
+	return insert_path(prompt_bufnr, "buf", "K", "n")
 end
 
 -- visual mode mappings
 path_actions.insert_abspath_i_visual = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "abs", "i", "v")
+	return insert_path(prompt_bufnr, "abs", "h", "v")
 end
 
 path_actions.insert_abspath_I_visual = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "abs", "I", "v")
+	return insert_path(prompt_bufnr, "abs", "H", "v")
 end
 
 path_actions.insert_abspath_a_visual = function(prompt_bufnr)
@@ -348,19 +348,19 @@ path_actions.insert_abspath_A_visual = function(prompt_bufnr)
 end
 
 path_actions.insert_abspath_o_visual = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "abs", "o", "v")
+	return insert_path(prompt_bufnr, "abs", "k", "v")
 end
 
 path_actions.insert_abspath_O_visual = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "abs", "O", "v")
+	return insert_path(prompt_bufnr, "abs", "K", "v")
 end
 
 path_actions.insert_relpath_i_visual = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "cwd", "i", "v")
+	return insert_path(prompt_bufnr, "cwd", "h", "v")
 end
 
 path_actions.insert_relpath_I_visual = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "cwd", "I", "v")
+	return insert_path(prompt_bufnr, "cwd", "H", "v")
 end
 
 path_actions.insert_relpath_a_visual = function(prompt_bufnr)
@@ -372,19 +372,19 @@ path_actions.insert_relpath_A_visual = function(prompt_bufnr)
 end
 
 path_actions.insert_relpath_o_visual = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "cwd", "o", "v")
+	return insert_path(prompt_bufnr, "cwd", "k", "v")
 end
 
 path_actions.insert_relpath_O_visual = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "cwd", "O", "v")
+	return insert_path(prompt_bufnr, "cwd", "K", "v")
 end
 
 path_actions.insert_reltobufpath_i_visual = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "buf", "i", "v")
+	return insert_path(prompt_bufnr, "buf", "h", "v")
 end
 
 path_actions.insert_reltobufpath_I_visual = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "buf", "I", "v")
+	return insert_path(prompt_bufnr, "buf", "H", "v")
 end
 
 path_actions.insert_reltobufpath_a_visual = function(prompt_bufnr)
@@ -396,15 +396,15 @@ path_actions.insert_reltobufpath_A_visual = function(prompt_bufnr)
 end
 
 path_actions.insert_reltobufpath_o_visual = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "buf", "o", "v")
+	return insert_path(prompt_bufnr, "buf", "k", "v")
 end
 
 path_actions.insert_reltobufpath_O_visual = function(prompt_bufnr)
-	return insert_path(prompt_bufnr, "buf", "O", "v")
+	return insert_path(prompt_bufnr, "buf", "K", "v")
 end
 
 -- Generic actions
--- Get location input from the user (i, I, a, A, o, O)
+-- Get location input from the user (h, H, a, A, k, K)
 path_actions.insert_reltobufpath_visual = function(prompt_bufnr)
 	return insert_path(prompt_bufnr, "buf", nil, "v")
 end
